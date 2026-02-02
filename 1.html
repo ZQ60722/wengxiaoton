@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>粤剧文化政策时间轴</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        #timelineChart {
+            width: 100%;
+            height: 600px;
+            margin: 20px 0;
+        }
+        .info-panel {
+            background-color: #f5f7fa;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .info-panel h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>粤剧文化政策发展时间轴</h1>
+
+    <div id="timelineChart"></div>
+
+    <div class="info-panel">
+        <h3>数据说明</h3>
+        <p>本时间轴展示了2022-2025年间粤剧文化保护与数字化发展的关键政策节点，按时间顺序排列，涵盖省级、市级政策及学术文献，反映粤剧文化在公共空间融合、数字化保护、文旅融合等方面的发展脉络。</p>
+    </div>
+</div>
+
+<script>
+    // 初始化图表
+    var chartDom = document.getElementById('timelineChart');
+    var myChart = echarts.init(chartDom);
+
+    // 时间轴数据
+    var data = [
+        {
+            name: '《广州市关于振兴发展粤剧事业工作方案（2022-2024）》',
+            time: '2022-12-07',
+            level: '市级',
+            content: '1.明确支持公园场景：提出"支持公园开展粤剧惠民演出"，将越秀公园"粤剧私伙局"纳入政府购买服务项目，推动粤剧从剧场走向公共空间。2. 文旅融合导向：强调"推动粤剧走出剧院，走进生活场景"，鼓励粤剧与公园、茶楼等城市空间结合，实现"在地文化与公共文化空间的深度联动"。'
+        },
+        {
+            name: '《广东省非物质文化遗产条例》（省级）',
+            time: '2023-01-01',
+            level: '省级',
+            content: '通过推进国家文化数字化战略确立"守正创新"的发展方向，并设立专项基金、完善人才培养政策以提供具体的资源支持，构建政府、院校与企业协同的创新机制，通过多方力量的共同参与，为非遗的数字化保护、传承与传播提供坚实的制度支撑'
+        },
+        {
+            name: '《粤剧粤曲文化（荔湾）生态保护区总体规划（2021-2030）》',
+            time: '2024-12-18',
+            level: '市级',
+            content: '1.空间规划定位：将公园列为"传承发展区"的核心载体，要求"推动粤剧粤曲文化保护与人民日常生活、民俗活动相结合，实施生活化保护"。2.活化利用要求：提出"活化利用公共空间传承粤剧"，明确公园作为粤剧生态保护的重要场景，需融入粤剧元素设计与常态化演出。'
+        },
+        {
+            name: '《广东省粤剧保护传承条例（草案）》',
+            time: '2025-01-01',
+            level: '省级',
+            content: '明确提出"推动粤剧走出剧院，走进生活场景"，支持粤剧与公共空间融合，为公园引入粤剧元素提供制度依据'
+        },
+        {
+            name: '《用科技新手段激发粤剧新活力》（市级）',
+            time: '2025-03-03',
+            level: '文献',
+            content: '指出，数字化传播打破了传统文化在时间和空间上的限制，通过构建全面的数字化保存体系，实现了文化资源的整合与空间延展，为文化的活态传承提供了坚实基础'
+        },
+        {
+            name: '《数字技术赋能广州粤剧文化创新传播：基于AIGC 与数字雕刻的路径》',
+            time: '2025-09-20',
+            level: '文献',
+            content: '明确提出文化数字化不仅是文化强国的需求，更是实现文化资源整合与产业创新，摆脱财政依赖的必然选择'
+        },
+        {
+            name: '《中共中央关于制定国民经济和社会发展第十五个五年规划的建议》（国家级）',
+            time: '2025-10-23',
+            level: '国家级',
+            content: '1.大力繁荣文化事业，深入实施中华优秀传统文化传承发展工程2. 建好用好国家文化公园3. 坚持文化惠民，实施公共文化服务提质增效行动。4. 推进文化和科技融合，推动文化建设数智化赋能、信息化转型，发展新型文化业态。'
+        }
+    ];
+
+    // 配置选项
+    var option = {
+        title: {
+            text: '粤剧文化政策发展时间轴',
+            left: 'center',
+            textStyle: {
+                fontSize: 18,
+                fontWeight: 'bold'
+            }
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: function(params) {
+                return `
+                        <div style="font-weight: bold; margin-bottom: 5px;">${params.name}</div>
+                        <div style="color: #666; margin-bottom: 5px;">时间：${params.data.time}</div>
+                        <div style="color: #666; margin-bottom: 5px;">级别：${params.data.level}</div>
+                        <div style="max-width: 400px;">${params.data.content}</div>
+                    `;
+            }
+        },
+        legend: {
+            data: ['政策级别'],
+            bottom: 10
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '15%',
+            top: '15%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'time',
+            axisLabel: {
+                formatter: function(value) {
+                    return echarts.format.formatTime('yyyy-MM', value);
+                }
+            },
+            splitLine: {
+                show: true
+            }
+        },
+        yAxis: {
+            type: 'category',
+            data: data.map(function(item) { return item.name; }),
+            axisLabel: {
+                interval: 0,
+                width: 120,
+                overflow: 'break'
+            },
+            splitLine: {
+                show: true
+            }
+        },
+        series: [
+            {
+                name: '政策级别',
+                type: 'scatter',
+                symbolSize: 12,
+                data: data.map(function(item) {
+                    return [new Date(item.time), item.name];
+                }),
+                itemStyle: {
+                    color: function(params) {
+                        // 根据级别设置不同颜色
+                        var colors = {
+                            '国家级': '#e74c3c',
+                            '省级': '#3498db',
+                            '市级': '#2ecc71',
+                            '文献': '#f39c12'
+                        };
+                        return colors[item.level] || '#95a5a6';
+                    }
+                },
+                label: {
+                    show: true,
+                    position: 'right',
+                    formatter: function(params) {
+                        return params.data[1];
+                    }
+                }
+            }
+        ]
+    };
+
+    // 使用配置项显示图表
+    myChart.setOption(option);
+
+    // 响应式调整
+    window.addEventListener('resize', function() {
+        myChart.resize();
+    });
+</script>
+</body>
+</html>
